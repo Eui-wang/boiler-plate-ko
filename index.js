@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const port = 9000
 const { User } = require("./models/User");
-
+const config = require('./config/key');
 //application/x-www-form-urlencoded
 app.use(express.urlencoded({extended: true}));
 
@@ -10,11 +10,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://Euiwang:dhkd1598@boilerplate.jrgfa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect(config.mongoURI, {
 }).then(() => console.log('MongoDB Connected...')).catch(
     err => console.log(err))
 
-app.get('/', (req, res) => res.send('Hello World!!!'))   
+app.get('/', (req, res) => res.send('Hello World!!!'))
 
 app.post('/register', (req, res) => {
     //회원가입시 필요한 정보들을 cliet에서 가져오면
